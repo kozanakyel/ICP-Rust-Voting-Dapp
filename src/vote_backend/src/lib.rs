@@ -162,5 +162,35 @@ fn vote(key: u64, choice: VoteTypes) -> Result<(), VoteError> {
     })
 }
 
+#[ic_cdk_macros::query]
+fn get_proposal_status(key: u64) -> String {
+    let proposal = PROPOSAL_MAP.with(|p| p.borrow().get(&key));
+
+    match proposal {
+        Some(proposal) => {
+            // Check if the proposal has at least 5 votes
+            if proposal.approve + proposal.reject + proposal.pass < 5 {
+                return String::from("UNDECIDED");
+            }
+
+            let total_votes = proposal.approve + proposal.reject + proposal.pass;
+
+            // Calculate the majority condition (at least 50% of votes)
+            let majority_condition = total_votes / 2;
+
+            // Determine the status based on votes
+            if proposal.approve >= majority_condition {
+                return String::from("APPROVED");
+            } else if proposal.reject >= majority_condition {
+                return String::from("REJECTED");
+            } else if proposal.pass >= majority_condition {
+                return String::from("PASSED");
+            } else {
+                return String::from("UNDECIDED");
+            }
+        }
+        None => String::from("NO_PROPOSAL"),
+    }
+}
 
 

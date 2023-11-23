@@ -40,5 +40,6 @@ service: {
     "edit_proposal": (nat64, CreateProposal) -> (Result);
     "end_proposal": (nat64) -> (Result);
     "vote": (nat64, Choice) -> (Result);
+    "get_proposal_status": (nat64) -> (text) query;
 }
 
