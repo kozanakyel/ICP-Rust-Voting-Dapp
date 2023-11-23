@@ -1,17 +1,86 @@
-# vote
+# ICP Rust Bootcamp - Proposal/Vote System Canister
 
-Welcome to your new vote project and to the internet computer development community. By default, creating a new project adds this README and some template files to your project directory. You can edit these template files to customize your project and to include your own code to speed up the development cycle.
+This project implements a simple proposal system smart contract on the Internet Computer blockchain. Users can create, edit, end, and vote on proposals, with a query function to determine the status of a proposal based on community votes.
 
-To get started, you might want to explore the project directory structure and the default configuration file. Working with this project in your development environment will not affect any production deployment or identity tokens.
+## Table of Contents
 
-To learn more before you start working with vote, see the following documentation available online:
+- [Overview](#overview)
+- [Features](#features)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+- [Query Functions](#query-functions)
+- [Update Functions](#update-functions)
+- [Proposal Status](#proposal-status)
+- [Contributing](#contributing)
+- [Run-deploy-test](#run-deploy-test)
 
-- [Quick Start](https://internetcomputer.org/docs/current/developer-docs/setup/deploy-locally)
-- [SDK Developer Tools](https://internetcomputer.org/docs/current/developer-docs/setup/install)
-- [Rust Canister Development Guide](https://internetcomputer.org/docs/current/developer-docs/backend/rust/)
-- [ic-cdk](https://docs.rs/ic-cdk)
-- [ic-cdk-macros](https://docs.rs/ic-cdk-macros)
-- [Candid Introduction](https://internetcomputer.org/docs/current/developer-docs/backend/candid/)
+## Overview
+
+The smart contract is written in Rust and uses the Candid interface description language for interacting with the Internet Computer. It utilizes the `ic_stable_structures` library for stable data structures and memory management.
+
+## Features
+
+- Create, edit, end, and vote on proposals.
+- Query the details of a proposal.
+- Get the total count of proposals.
+- Determine the status of a proposal based on community votes.
+
+## Getting Started
+
+To deploy and interact with the smart contract, follow these steps:
+
+1. Clone the repository.
+2. Install the necessary dependencies.
+3. Build and deploy the smart contract.
+
+## Usage
+
+Describe how users can deploy the smart contract and interact with its functions.
+
+## Query Functions
+
+### `get_proposal(key: u64) -> Option<Proposal>`
+
+Retrieve the details of a proposal based on the provided key.
+
+### `get_proposal_count() -> u64`
+
+Get the total count of proposals.
+
+### `get_proposal_status(key: u64) -> String`
+
+Determine the status of a proposal based on community votes.
+
+## Update Functions
+
+### `create_proposal(key: u64, proposal: CreateProposal) -> Option<Proposal>`
+
+Create a new proposal.
+
+### `edit_proposal(key: u64, proposal: CreateProposal) -> Result<(), VoteError>`
+
+Edit an existing proposal.
+
+### `end_proposal(key: u64) -> Result<(), VoteError>`
+
+End an active proposal.
+
+### `vote(key: u64, choice: VoteTypes) -> Result<(), VoteError>`
+
+Vote on a proposal.
+
+## Proposal Status
+
+The `get_proposal_status` query function calculates the status of a proposal. It declares the proposal as 'Approved,' 'Rejected,' 'Passed,' or 'Undecided' based on the votes.
+
+- A proposal must have at least 5 votes to be eligible for evaluation.
+- A status is only assigned if it earns at least 50% of the votes.
+
+## Contributing
+
+Describe how others can contribute to the project.
+
+## Run-deploy-test
 
 If you want to start working on your project right away, you might want to try the following commands:
 
